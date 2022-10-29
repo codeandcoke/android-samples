@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/recommend_book"
+        android:icon="@android:drawable/ic_menu_share"
+        android:title="Recommend" />
+    <item
+        android:id="@+id/modify_book"
+        android:icon="@android:drawable/ic_menu_edit"
+        android:title="Modify book" />
+    <item
+        android:id="@+id/delete_book"
+        android:icon="@android:drawable/ic_menu_delete"
+        android:title="Delete book" />
+</menu>
