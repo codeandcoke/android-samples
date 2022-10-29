@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">Preferences</string>
+    <string name="do_something">Check a preference</string>
+    <string name="see_preferences">Go to Preferences</string>
+</resources>

@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">Notificacions</string>
+    <string name="channel_name">Notificacions</string>
+    <string name="channel_description">Application notifications</string>
+    <string name="mAviso">Warning</string>
+    <string name="mMensajeAviso">This is a message</string>
+</resources>

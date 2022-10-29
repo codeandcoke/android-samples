@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">FlexibleUI</string>
+    <string name="hello_fragment1">Hello Fragment1</string>
+    <string name="hello_fragment2">Hello Fragment2</string>
+</resources>
