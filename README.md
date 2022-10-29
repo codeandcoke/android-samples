@@ -1,5 +1,5 @@
 # android-samples
-Aandroid samples projects
+Android samples projects
 - __Fragments__: How to design an Activity using two Fragments
 - __Notifications__: How to show notifications
 - __Preferences__: How to create a Preference Activity
