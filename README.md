@@ -1,7 +1,7 @@
 # android-samples
 Aandroid samples projects
-- **Fragments**: How to design an Activity using two Fragments
-- **Notifications**: How to show notifications
-- **Preferences**: How to create a Preference Activity
-- **RecyclerView**: How to use a RecyclerView
-- **themealdb**: Consume an API using Retrofit
+- __Fragments__: How to design an Activity using two Fragments
+- __Notifications__: How to show notifications
+- __Preferences__: How to create a Preference Activity
+- __RecyclerView__: How to use a RecyclerView
+- __themealdb__: Consume an API using Retrofit
