@@ -1,0 +1,44 @@
+plugins {
+    id 'com.android.application'
+}
+
+android {
+    namespace 'space.harbour.themealdb'
+    compileSdk 32
+
+    defaultConfig {
+        applicationId "space.harbour.themealdb"
+        minSdk 21
+        targetSdk 32
+        versionCode 1
+        versionName "1.0"
+
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+}
+
+dependencies {
+
+    // Lombok: Download the plugin zip file, extract it and copy to $android_studio_dir/plugins
+    compileOnly "org.projectlombok:lombok:1.18.24"
+    annotationProcessor 'org.projectlombok:lombok:1.18.24'
+    implementation "androidx.room:room-runtime:2.4.3"
+    implementation 'com.squareup.retrofit2:retrofit:2.9.0'
+    implementation 'com.squareup.retrofit2:converter-gson:2.4.0'
+    implementation 'com.squareup.picasso:picasso:2.8'
+    annotationProcessor "androidx.room:room-compiler:2.4.3"
+    implementation 'androidx.appcompat:appcompat:1.5.1'
+    implementation 'com.google.android.material:material:1.7.0'
+    implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
+}
