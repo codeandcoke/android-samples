@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <PreferenceCategory android:title="Lista">
+
+    </PreferenceCategory>
+    <SwitchPreferenceCompat
+        app:key="no_empty_stations"
+        app:title="No mostrar estaciones sin bicicletas" />
+
+    <PreferenceCategory android:title="Mapa">
+        <SwitchPreference
+            android:defaultValue="false"
+            android:icon="@android:drawable/ic_dialog_info"
+            android:key="station_info"
+            android:title="Mostrar información de la estación en la ubicación" />
+    </PreferenceCategory>
+    <EditTextPreference
+        android:key="show_station_bike_count"
+        android:selectAllOnFocus="true"
+        android:singleLine="true"
+        android:title="Cantidad de bicicletas para mostrar estación" />
+
+</PreferenceScreen>

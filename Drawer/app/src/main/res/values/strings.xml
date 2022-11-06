@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">Drawer</string>
+    <string name="nav_header_title">My List</string>
+    <string name="nav_header_subtitle">codeandcoke</string>
+
+    <string name="menu_mylist">My List</string>
+    <string name="menu_products">Products</string>
+
+</resources>
