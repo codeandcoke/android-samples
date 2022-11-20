@@ -7,6 +7,7 @@ Android samples projects
 - __Fragments__: How to design an Activity using two Fragments
 - __Fragments2__: Fragments sample project
 - __GPS__: GPS sample project
+- __Mapbox__: Mapbox library sample project (load map, add markers and set camera position)
 - __Maps__: Maps sample project: Google Maps, Markers and Directions API
 - __MasterDetail (Fragments)__: Master-Detail sample project using Fragments
 - __Notifications__: How to show notifications
