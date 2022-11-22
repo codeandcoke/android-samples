@@ -3,6 +3,7 @@ package com.codeandcoke.mapbox;
 import android.content.Intent;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -13,6 +14,7 @@ import com.mapbox.geojson.Point;
 import com.mapbox.maps.CameraOptions;
 import com.mapbox.maps.MapView;
 import com.mapbox.maps.Style;
+import com.mapbox.maps.plugin.annotation.AnnotationConfig;
 import com.mapbox.maps.plugin.annotation.AnnotationPlugin;
 import com.mapbox.maps.plugin.annotation.AnnotationPluginImplKt;
 import com.mapbox.maps.plugin.annotation.generated.PointAnnotationManager;
@@ -27,11 +29,15 @@ public class MapsActivity extends AppCompatActivity implements Style.OnStyleLoad
     private String action;
     private Place currentPlace;
     private List<Place> allPlaces;
+    private AnnotationConfig annotationConfig;
+    private PointAnnotationManager pointAnnotationManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_maps);
+
+
 
         Intent intent = getIntent();
         action = intent.getStringExtra("action");
@@ -43,6 +49,10 @@ public class MapsActivity extends AppCompatActivity implements Style.OnStyleLoad
 
         mapView = findViewById(R.id.mapView);
         mapView.getMapboxMap().loadStyleUri(Style.MAPBOX_STREETS, this);
+
+        AnnotationPlugin annotationPlugin = AnnotationPluginImplKt.getAnnotations(mapView);
+        annotationConfig = new AnnotationConfig();
+        pointAnnotationManager = PointAnnotationManagerKt.createPointAnnotationManager(annotationPlugin, annotationConfig);
 
         setMarkerClickListener();
     }
@@ -64,13 +74,12 @@ public class MapsActivity extends AppCompatActivity implements Style.OnStyleLoad
     }
 
     private void addMarker(Place place) {
-        AnnotationPlugin annotationPlugin = AnnotationPluginImplKt.getAnnotations(mapView);
-        PointAnnotationManager pointAnnotationManager = PointAnnotationManagerKt.createPointAnnotationManager(annotationPlugin, mapView);
         PointAnnotationOptions pointAnnotationOptions = new PointAnnotationOptions()
                 .withPoint(Point.fromLngLat(place.getLongitude(), place.getLatitude()))
                 .withIconImage(BitmapFactory.decodeResource(getResources(), R.mipmap.red_marker))
                 .withTextField(place.getName());
         pointAnnotationManager.create(pointAnnotationOptions);
+        Toast.makeText(this, " " + pointAnnotationManager.getAnnotations().size(), Toast.LENGTH_LONG).show();
     }
 
     private void setCameraPosition(double latitude, double longitude) {
@@ -84,17 +93,18 @@ public class MapsActivity extends AppCompatActivity implements Style.OnStyleLoad
     }
 
     private void removeAllMarkers() {
-        AnnotationPlugin annotationPlugin = AnnotationPluginImplKt.getAnnotations(mapView);
-        PointAnnotationManager pointAnnotationManager = PointAnnotationManagerKt.createPointAnnotationManager(annotationPlugin, mapView);
         pointAnnotationManager.deleteAll();
     }
 
     private void setMarkerClickListener() {
-        AnnotationPlugin annotationPlugin = AnnotationPluginImplKt.getAnnotations(mapView);
-        PointAnnotationManager pointAnnotationManager = PointAnnotationManagerKt.createPointAnnotationManager(annotationPlugin, mapView);
         pointAnnotationManager.addClickListener((pointAnnotation) -> {
             Toast.makeText(this, "Click", Toast.LENGTH_LONG).show();
             return true;
         });
+    }
+
+    public void removeAllMarkers(View view) {
+        removeAllMarkers();
+        Toast.makeText(this, "Markers eliminados", Toast.LENGTH_LONG).show();
     }
 }
