@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">ReciclerViewSample</string>
+    <string name="a_superhero_must_be_selected">A superhero must be selected</string>
 </resources>

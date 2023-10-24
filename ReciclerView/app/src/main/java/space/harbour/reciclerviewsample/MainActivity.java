@@ -49,6 +49,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     public void onClick(View view) {
         // Get selected hero from the list
         Superhero selectedCharacter = adapter.getSelectedSuperhero();
+        if (selectedCharacter == null)
+            Toast.makeText(this, R.string.a_superhero_must_be_selected, Toast.LENGTH_LONG).show();
+
         Toast.makeText(this, selectedCharacter.getFullName(), Toast.LENGTH_SHORT).show();
     }
 }
