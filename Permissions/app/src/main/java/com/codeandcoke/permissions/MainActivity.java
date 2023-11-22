@@ -1,18 +1,25 @@
 package com.codeandcoke.permissions;
 
 import android.Manifest;
+import android.app.Activity;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import androidx.activity.result.ActivityResult;
+import androidx.activity.result.ActivityResultCallback;
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.PickVisualMediaRequest;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
@@ -21,6 +28,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     private final int PICK_PICTURE = 1;
     private final int PICK_CONTACT = 2;
+
+    private ImageView imageView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,11 +45,20 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.CAMERA}, 2);
         }
 
-        Button btCall = findViewById(R.id.btCall);
-        btCall.setOnClickListener(this);
-        ImageView ivImagen = findViewById(R.id.imageView);
-        ivImagen.setOnClickListener(this);
+        Button callButton = findViewById(R.id.btCall);
+        callButton.setOnClickListener(this);
+        imageView = findViewById(R.id.imageView);
+        imageView.setOnClickListener(this);
     }
+
+    ActivityResultLauncher<Intent> galleryActivityResultLauncher = registerForActivityResult(
+            new ActivityResultContracts.StartActivityForResult(),
+            result -> {
+                if (result.getResultCode() == Activity.RESULT_OK) {
+                    Uri image_uri = result.getData().getData();
+                    imageView.setImageURI(image_uri);
+                }
+            });
 
     @Override
     public void onClick(View view) {
@@ -61,10 +79,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             case R.id.imageView:
                 if (ActivityCompat.checkSelfPermission(this, Manifest.permission.CAMERA) ==
                         PackageManager.PERMISSION_GRANTED) {
-                    Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-                    if (intent.resolveActivity(getPackageManager()) != null) {
-                        startActivityForResult(intent, PICK_PICTURE);
-                    }
+                    Intent galleryIntent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+                    galleryActivityResultLauncher.launch(galleryIntent);
                 } else {
                     Toast.makeText(this, "Es necesario permiso para utilizar la cámara", Toast.LENGTH_SHORT).show();
                 }
