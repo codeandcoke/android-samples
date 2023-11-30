@@ -1,0 +1,13 @@
+<resources>
+    <string name="app_name">TodoList</string>
+    <string name="name">Nombre</string>
+    <string name="description">Descripción</string>
+    <string name="create">Crear</string>
+    <string name="pending">Sin hacer</string>
+    <string name="done">Hecha</string>
+    <string name="details">Detalles</string>
+    <string name="urgent">Urgente</string>
+    <string name="tarea_insertada">Tarea insertada</string>
+    <string name="here">Aquí</string>
+    <string name="la_tarea_se_ha_registrado_correctamente">La tarea se ha registrado correctamente</string>
+</resources>

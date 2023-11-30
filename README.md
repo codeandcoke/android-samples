@@ -16,3 +16,4 @@ Android samples projects
 - __RecyclerView__: How to use a RecyclerView
 - __Room database__: CRUD sample using Room library
 - __themealdb__: Consume an API using Retrofit
+- __TodoList v2.1__: Android application (designed according to the MVP pattern) that connects to an API ([todoapi_v1](https://github.com/codeandcoke/spring-web/tree/master/todoapi_v1)) using Retrofit
