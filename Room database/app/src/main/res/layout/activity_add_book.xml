@@ -8,7 +8,7 @@
     tools:context=".AddBook">
 
     <EditText
-        android:id="@+id/etTitle"
+        android:id="@+id/book_title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:ems="10"
@@ -18,55 +18,67 @@
         tools:layout_editor_absoluteX="107dp" />
 
     <EditText
-        android:id="@+id/etDescription"
+        android:id="@+id/book_description"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
         android:ems="10"
         android:hint="Descripción"
         android:inputType="textPersonName"
-        app:layout_constraintTop_toBottomOf="@+id/etTitle"
+        app:layout_constraintTop_toBottomOf="@+id/book_title"
         tools:layout_editor_absoluteX="82dp" />
 
     <EditText
-        android:id="@+id/etPublisher"
+        android:id="@+id/book_publisher"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
         android:ems="10"
         android:hint="Editorial"
         android:inputType="textPersonName"
-        app:layout_constraintTop_toBottomOf="@+id/etDescription"
+        app:layout_constraintTop_toBottomOf="@+id/book_description"
         tools:layout_editor_absoluteX="99dp" />
 
     <EditText
-        android:id="@+id/etCategory"
+        android:id="@+id/book_category"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
         android:ems="10"
         android:hint="Category"
         android:inputType="textPersonName"
-        app:layout_constraintTop_toBottomOf="@+id/etPublisher"
+        app:layout_constraintTop_toBottomOf="@+id/book_publisher"
         tools:layout_editor_absoluteX="120dp" />
 
     <EditText
-        android:id="@+id/etPageCount"
+        android:id="@+id/book_page_count"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
         android:ems="10"
         android:hint="Número de páginas"
         android:inputType="number"
-        app:layout_constraintTop_toBottomOf="@+id/etCategory"
+        app:layout_constraintTop_toBottomOf="@+id/book_category"
         tools:layout_editor_absoluteX="143dp" />
 
     <Button
-        android:id="@+id/btSaveBook"
+        android:id="@+id/save_book_button"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Save"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
+
+    <ImageView
+        android:id="@+id/book_image"
+        android:layout_width="200dp"
+        android:layout_height="200dp"
+        android:onClick="setImage"
+        app:layout_constraintBottom_toTopOf="@+id/save_book_button"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/book_page_count"
+        app:srcCompat="@android:drawable/ic_menu_report_image"
+        tools:srcCompat="@tools:sample/avatars" />
 </androidx.constraintlayout.widget.ConstraintLayout>

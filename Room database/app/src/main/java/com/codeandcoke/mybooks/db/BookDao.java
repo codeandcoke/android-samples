@@ -23,5 +23,8 @@ public interface BookDao {
     void delete(Book book);
 
     @Update
+    void update(Book book);
+
+    @Update
     void updateAll(Book... books);
 }

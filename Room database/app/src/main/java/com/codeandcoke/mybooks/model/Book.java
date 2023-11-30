@@ -1,8 +1,11 @@
 package com.codeandcoke.mybooks.model;
 
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import androidx.annotation.NonNull;
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
@@ -10,9 +13,7 @@ import androidx.room.PrimaryKey;
 @Entity
 public class Book implements Parcelable {
 
-    @PrimaryKey
-    private int id;
-    @ColumnInfo
+    @PrimaryKey @NonNull
     private String title;
     @ColumnInfo
     private String description;
@@ -22,17 +23,21 @@ public class Book implements Parcelable {
     private String category;
     @ColumnInfo(name = "page_count")
     private int pageCount;
+    @ColumnInfo
+    private String image;
+    @ColumnInfo
+    private boolean read;
 
     public Book() {
     }
 
     protected Book(Parcel in) {
-        id = in.readInt();
         title = in.readString();
         description = in.readString();
         publisher = in.readString();
         category = in.readString();
         pageCount = in.readInt();
+        image = in.readString();
     }
 
     public static final Creator<Book> CREATOR = new Creator<Book>() {
@@ -46,14 +51,6 @@ public class Book implements Parcelable {
             return new Book[size];
         }
     };
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
 
     public String getTitle() {
         return title;
@@ -95,9 +92,29 @@ public class Book implements Parcelable {
         this.pageCount = pageCount;
     }
 
+    public String getImage() {
+        return image;
+    }
+
+    public void setImage(String image) {
+        this.image = image;
+    }
+
+    public boolean isRead() {
+        return read;
+    }
+
+    public void setRead(boolean read) {
+        this.read = read;
+    }
+
     @Override
     public String toString() {
-        return title + " (" + publisher + ")";
+        if (image != null) {
+            return title + " (" + publisher + ") [" + image + "]";
+        }
+
+        return title + " (" + publisher + ") [no image]";
     }
 
     @Override
@@ -107,11 +124,11 @@ public class Book implements Parcelable {
 
     @Override
     public void writeToParcel(Parcel parcel, int i) {
-        parcel.writeInt(id);
         parcel.writeString(title);
         parcel.writeString(description);
         parcel.writeString(publisher);
         parcel.writeString(category);
         parcel.writeInt(pageCount);
+        parcel.writeString(image);
     }
 }

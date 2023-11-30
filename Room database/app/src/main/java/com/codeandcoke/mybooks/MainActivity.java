@@ -19,8 +19,11 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 import androidx.room.Room;
 
+import com.codeandcoke.mybooks.adapter.BookAdapter;
 import com.codeandcoke.mybooks.db.AppDatabase;
 import com.codeandcoke.mybooks.model.Book;
 
@@ -29,7 +32,7 @@ import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
-    private ArrayAdapter<Book> booksAdapter;
+    private BookAdapter adapter;
     private List<Book> books;
 
     @Override
@@ -37,21 +40,27 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        ListView lvBooks = findViewById(R.id.lvBooks);
         books = new ArrayList<>();
-        booksAdapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, books);
-        lvBooks.setAdapter(booksAdapter);
-        registerForContextMenu(lvBooks);
+        RecyclerView recyclerView = findViewById(R.id.book_list);
+        recyclerView.setHasFixedSize(true);
+        LinearLayoutManager layoutManager = new LinearLayoutManager(this);
+        recyclerView.setLayoutManager(layoutManager);
+        adapter = new BookAdapter(books);
+        recyclerView.setAdapter(adapter);
     }
 
     @Override
     protected void onResume() {
         super.onResume();
 
+        loadBooks();
+    }
+
+    private void loadBooks() {
         final AppDatabase db = Room.databaseBuilder(this, AppDatabase.class, BOOKS).allowMainThreadQueries().build();
         books.clear();
         books.addAll(db.bookDao().getAll());
-        booksAdapter.notifyDataSetChanged();
+        adapter.notifyDataSetChanged();
     }
 
     @Override
@@ -71,7 +80,7 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public boolean onQueryTextSubmit(String query) {
-                Toast.makeText(getApplicationContext(), "TextSbumit: " + query, Toast.LENGTH_LONG).show();
+                Toast.makeText(getApplicationContext(), "TextSubmit: " + query, Toast.LENGTH_LONG).show();
                 return true;
             }
         };
@@ -93,42 +102,6 @@ public class MainActivity extends AppCompatActivity {
         }
 
         return super.onOptionsItemSelected(item);
-    }
-
-    @Override
-    public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo) {
-        super.onCreateContextMenu(menu, v, menuInfo);
-        getMenuInflater().inflate(R.menu.contextmenu, menu);
-    }
-
-    @Override
-    public boolean onContextItemSelected(@NonNull MenuItem item) {
-        AdapterView.AdapterContextMenuInfo menuInfo = (AdapterView.AdapterContextMenuInfo) item.getMenuInfo();
-        final int position = menuInfo.position;
-        final Book book = books.get(position);
-
-        if (item.getItemId() == R.id.recommend_book) {
-            // TODO Recommend a book
-            return true;
-        } else if (item.getItemId() == R.id.modify_book) {
-            modifyBook(book);
-            return true;
-        } else if (item.getItemId() == R.id.delete_book) {
-            AlertDialog.Builder builder = new AlertDialog.Builder(this);
-            builder.setMessage(R.string.are_you_sure)
-                    .setPositiveButton(R.string.yes, (dialogInterface, i) -> {
-                        deleteBook(book);
-                        // FIXME Refresco rápido
-                        books.remove(position);
-                        booksAdapter.notifyDataSetChanged();
-                    })
-                    .setNegativeButton(R.string.no, (dialogInterface, i) -> dialogInterface.dismiss());
-            builder.create().show();
-
-            return true;
-        }
-
-        return super.onContextItemSelected(item);
     }
 
     private void modifyBook(Book book) {
